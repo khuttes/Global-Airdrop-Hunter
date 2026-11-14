@@ -24,7 +24,7 @@
 ### 1.1 Desktop Application Shell
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | Electron main process with context isolation | **FAILED** | `desktop/main.js:135-136` | contextIsolation: true, but app crashes on crypto error |
 | Secure preload script with IPC bridge | **FAILED** | `desktop/preload.js:50-75` | Duplicate campaigns object breaks API |
 | Sandbox mode enabled | **VERIFIED** | `desktop/main.js:137` | sandbox: true |
@@ -39,7 +39,7 @@
 ### 1.2 Backend API Server
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | FastAPI application factory | **VERIFIED** | `backend/main.py:41-78` | create_app() pattern implemented |
 | Lifespan startup/shutdown | **VERIFIED** | `backend/main.py:22-38` | async context manager with init/cleanup |
 | Health check endpoint | **IMPLEMENTED** | `backend/api/routes/health.py` | Exists but not tested |
@@ -55,7 +55,7 @@
 ### 1.3 Database Layer
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | SQLite connection pool | **IMPLEMENTED** | `backend/database/connection.py` | Exists but not verified |
 | Migration system | **PARTIAL** | `backend/database/migrations/001-007.sql` | Files exist, runner code missing |
 | Schema version tracking | **NOT IMPLEMENTED** | No `schema_migrations` table usage found | Table defined in migration but not used |
@@ -68,7 +68,7 @@
 ### 1.4 Configuration Management
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | Environment-based config | **VERIFIED** | `backend/config.py` | Pydantic Settings with env vars |
 | Data directory in %LOCALAPPDATA% | **IMPLEMENTED** | `backend/config.py` | Default path set |
 | Token storage in config.json | **IMPLEMENTED** | `desktop/main.js:52` | APP_DATA_DIR passed to backend |
@@ -83,7 +83,7 @@
 ### 2.1 Source Adapter Framework
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | Adapter interface (ABC) | **VERIFIED** | `backend/core/adapters.py:1-50` | SourceAdapter, APISourceAdapter base classes |
 | Metadata property | **VERIFIED** | `backend/core/adapters.py:52-88` | SourceMetadata dataclass with all fields |
 | health_check() method | **IMPLEMENTED** | `backend/core/adapters_impl.py` | Implemented in all 4 adapters |
@@ -99,7 +99,7 @@
 ### 2.2 Concrete Adapters (from PDF Section 4.1)
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | CoinGecko adapter | **IMPLEMENTED** | `adapters_impl.py:11-191` | Full implementation with discover() |
 | DefiLlama adapter | **IMPLEMENTED** | `adapters_impl.py:194-337` | Full implementation with discover() |
 | GitHub adapter | **IMPLEMENTED** | `adapters_impl.py:340-582` | Full implementation with discover() |
@@ -113,7 +113,7 @@
 ### 2.3 Discovery Engine
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | Scan orchestration service | **IMPLEMENTED** | `backend/core/discovery.py` | DiscoveryService class exists |
 | Concurrent adapter execution | **IMPLEMENTED** | `backend/core/discovery.py` | Uses asyncio.gather |
 | Health check before discover | **IMPLEMENTED** | `backend/core/discovery.py` | Calls adapter.health_check() |
@@ -127,7 +127,7 @@
 ### 2.4 Campaign CRUD
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | Create campaign | **IMPLEMENTED** | `backend/api/routes/campaigns.py` | POST /api/v1/campaigns |
 | Read campaign (list) | **IMPLEMENTED** | `backend/api/routes/campaigns.py` | GET /api/v1/campaigns |
 | Read campaign (by ID) | **IMPLEMENTED** | `backend/api/routes/campaigns.py` | GET /api/v1/campaigns/{id} |
@@ -146,7 +146,7 @@
 ### 3.1 API Routes
 
 | Route | Status | Evidence | Notes |
-|-------|--------|----------|-------|
+| ----- | ------ | -------- | ----- |
 | GET /api/v1/health | **IMPLEMENTED** | `backend/api/routes/health.py` | Exists |
 | GET /api/v1/dashboard | **IMPLEMENTED** | `backend/api/routes/dashboard.py` | Exists |
 | GET/POST /api/v1/campaigns | **IMPLEMENTED** | `backend/api/routes/campaigns.py` | Full CRUD |
@@ -162,7 +162,7 @@
 ### 3.2 Core Services
 
 | Service | Status | Evidence | Notes |
-|---------|--------|----------|-------|
+| ------- | ------ | -------- | ----- |
 | Token management | **IMPLEMENTED** | `backend/core/security.py` | TokenManager class |
 | Pydantic models | **VERIFIED** | `backend/core/models.py` | All models defined with validation |
 | Domain verification | **IMPLEMENTED** | `backend/core/verification.py` | WHOIS/SSL/DNS checks |
@@ -177,7 +177,7 @@
 ### 3.3 Database Schema
 
 | Table | Status | Evidence | Notes |
-|-------|--------|----------|-------|
+| ----- | ------ | -------- | ----- |
 | sources | **IMPLEMENTED** | `001_initial_schema.sql` | Created |
 | campaigns | **IMPLEMENTED** | `001_initial_schema.sql` | Created with category fields |
 | campaign_evidence | **IMPLEMENTED** | `001_initial_schema.sql` | Created |
@@ -203,7 +203,7 @@
 ### 4.1 Frontend Core
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | HTML5 semantic structure | **VERIFIED** | `frontend/index.html` | Exists and structured |
 | CSS design system | **VERIFIED** | `frontend/css/variables.css` | Dark/light theme tokens |
 | Layout CSS | **VERIFIED** | `frontend/css/layout.css` | Sidebar, header, grid |
@@ -218,7 +218,7 @@
 ### 4.2 Frontend Components
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | Component directory | **NOT IMPLEMENTED** | `frontend/js/components/` | Does not exist |
 | Reusable UI components | **NOT IMPLEMENTED** | N/A | All UI inline in app.js |
 | Dashboard view | **IMPLEMENTED** | `frontend/js/app.js` | Inline code |
@@ -236,7 +236,7 @@
 ### 5.1 Electron Security
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | Context isolation | **VERIFIED** | `desktop/main.js:135` | contextIsolation: true |
 | Node integration disabled | **VERIFIED** | `desktop/main.js:136` | nodeIntegration: false |
 | Sandbox enabled | **VERIFIED** | `desktop/main.js:137` | sandbox: true |
@@ -251,7 +251,7 @@
 ### 5.2 API Security
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | Token authentication | **FAILED** | Token mismatch | Auth exists but broken |
 | Origin validation | **VERIFIED** | `backend/main.py:55` | CORS restricted to localhost |
 | Request size limit | **IMPLEMENTED** | `backend/api/middleware/auth.py` | 1MB limit (needs verification) |
@@ -265,7 +265,7 @@
 ### 5.3 Data Protection
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | No hardcoded secrets | **VERIFIED** | Code inspection | No secrets in source |
 | Local-only data storage | **VERIFIED** | `%LOCALAPPDATA%` path | Per ARCHITECTURE.md |
 | No telemetry | **VERIFIED** | No telemetry code found | Confirmed |
@@ -281,7 +281,7 @@
 ### 6.1 Automated Tests
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | Unit tests | **NOT IMPLEMENTED** | `tests/` empty | No test files |
 | Integration tests | **NOT IMPLEMENTED** | `tests/` empty | No test files |
 | API tests | **NOT IMPLEMENTED** | `tests/` empty | No test files |
@@ -295,7 +295,7 @@
 ### 6.2 CI/CD
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | GitHub Actions workflow | **NOT IMPLEMENTED** | No `.github/workflows/` | Not configured |
 | Automated testing on push | **NOT IMPLEMENTED** | No CI config | Not configured |
 | Linting | **NOT IMPLEMENTED** | No flake8/eslint config | Not configured |
@@ -306,7 +306,7 @@
 ### 6.3 Quality Gates
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | Code formatting | **NOT IMPLEMENTED** | No black/prettier config | Not configured |
 | Type checking | **NOT IMPLEMENTED** | No mypy/tsc config | Not configured |
 | Pre-commit hooks | **NOT IMPLEMENTED** | No .pre-commit-config.yaml | Not configured |
@@ -320,7 +320,7 @@
 ### 7.1 Build Configuration
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | package.json build scripts | **IMPLEMENTED** | `package.json` | Scripts defined |
 | electron-builder config | **IMPLEMENTED** | `package.json` | NSIS + portable targets |
 | Python runtime bundling | **IMPLEMENTED** | `package.json` extraResources | venv path configured |
@@ -331,7 +331,7 @@
 ### 7.2 Distribution
 
 | Requirement | Status | Evidence | Notes |
-|-------------|--------|----------|-------|
+| ----------- | ------ | -------- | ----- |
 | NSIS installer | **BLOCKED** | electron-builder issues | Cannot build |
 | Portable executable | **BLOCKED** | electron-builder issues | Cannot build |
 | Browser launcher fallback | **VERIFIED** | `scripts/launch.ps1` | Functional workaround |
@@ -345,7 +345,7 @@
 ## Summary by Category
 
 | Category | Weight | Requirements | Verified | Implemented | Partial | Missing | Failed | Blocked | Score |
-|----------|--------|--------------|----------|-------------|---------|---------|--------|---------|-------|
+| -------- | ------ | ------------ | -------- | ----------- | ------- | ------- | ------ | ------- | ----- |
 | 1. Core Application | 30% | 32 | 12 | 12 | 2 | 2 | 6 | 0 | **37.5%** |
 | 2. Discovery & Campaigns | 20% | 31 | 3 | 22 | 1 | 2 | 1 | 0 | **9.7% verified, 71% implemented** |
 | 3. Backend/API/DB | 15% | 32 | 1 | 29 | 2 | 0 | 0 | 0 | **3.1% verified, 90.6% implemented** |
@@ -355,6 +355,7 @@
 | 7. Packaging/Deployment | 5% | 9 | 1 | 3 | 0 | 0 | 0 | 2 | **11.1% verified, 33.3% implemented** |
 
 **Overall Statistics:**
+
 - Total Requirements: 153
 - VERIFIED: 36 (23.5%)
 - IMPLEMENTED: 76 (49.7%)
@@ -369,28 +370,33 @@
 ## Critical Path to Production
 
 ### Phase 1: Fix Critical Bugs (1-2 hours)
+
 1. Add `const crypto = require('crypto');` to `desktop/main.js`
 2. Fix duplicate campaigns object in `desktop/preload.js`
 3. Implement single token generation (backend generates, Electron reads via IPC)
 
 ### Phase 2: Verify Core Features (1 day)
+
 1. Run backend API tests manually
 2. Test campaign CRUD end-to-end
 3. Verify discovery with real adapters
 4. Test eligibility and risk features
 
 ### Phase 3: Implement Missing Adapters (2-3 days)
+
 1. Galxe adapter
 2. Layer3 adapter
 3. Official site HTML scraper (if needed)
 
 ### Phase 4: Add Basic Test Suite (2-3 days)
+
 1. pytest setup with fixtures
 2. API endpoint smoke tests
 3. Database migration tests
 4. Auth flow tests
 
 ### Phase 5: Resolve Packaging (1 day)
+
 1. Debug electron-builder file locking
 2. Test clean install
 3. Create distribution artifacts

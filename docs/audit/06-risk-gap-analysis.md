@@ -11,6 +11,7 @@
 ## Critical Blockers
 
 ### B1: Electron Desktop App Cannot Start
+
 - **File:** `desktop/main.js:13`
 - **Issue:** `crypto.getRandomValues` called but `crypto` is never imported
 - **Impact:** App crashes immediately on launch
@@ -18,6 +19,7 @@
 - **Severity:** CRITICAL
 
 ### B2: Campaign API Broken in Renderer
+
 - **File:** `desktop/preload.js:50-75`
 - **Issue:** Duplicate `campaigns` object — second definition overwrites first
 - **Impact:** `campaigns.list()` and `campaigns.get()` methods lost
@@ -25,6 +27,7 @@
 - **Severity:** CRITICAL
 
 ### B3: Token Mismatch
+
 - **Files:** `desktop/main.js` and `backend/main.py`
 - **Issue:** Both generate independent tokens; they don't match
 - **Impact:** Desktop app cannot authenticate to backend
@@ -32,6 +35,7 @@
 - **Severity:** CRITICAL
 
 ### B4: Electron Packaging Blocked
+
 - **File:** `ELECTRON_INTEGRATION_ISSUES.md`
 - **Issue:** `electron.asar` missing from releases; npm postinstall fails on Windows
 - **Impact:** Cannot distribute as desktop app
@@ -41,24 +45,28 @@
 ## High-Priority Gaps
 
 ### G1: No Concrete Platform Adapters
+
 - **Location:** `backend/core/adapters_impl.py`
 - **Issue:** Interface defined but no concrete implementations (Twitter, Discord, GitHub, etc.)
 - **Impact:** Discovery feature cannot actually run
 - **Severity:** HIGH
 
 ### G2: No Frontend Component Architecture
+
 - **Location:** `frontend/js/`
 - **Issue:** All UI in monolithic `app.js`; no component directory
 - **Impact:** Poor maintainability, no reusability
 - **Severity:** HIGH
 
 ### G3: No Test Coverage
+
 - **Location:** `tests/`
 - **Issue:** Empty directory; zero tests
 - **Impact:** No regression protection; bugs go undetected
 - **Severity:** HIGH
 
 ### G4: No CI/CD Pipeline
+
 - **Location:** Project root
 - **Issue:** No GitHub Actions, no automated testing
 - **Impact:** Manual testing only; integration issues undetected
@@ -67,18 +75,21 @@
 ## Medium-Priority Gaps
 
 ### G5: Schema Duplication in Migrations
+
 - **Location:** `backend/database/migrations/002` and `005`
 - **Issue:** Both create `risk_rules` table with different schemas
 - **Impact:** Migration conflicts on clean install
 - **Severity:** MEDIUM
 
 ### G6: No Migration Runner
+
 - **Location:** `backend/database/`
 - **Issue:** No code to apply migrations programmatically
 - **Impact:** Manual database setup required
 - **Severity:** MEDIUM
 
 ### G7: No OpenAPI Documentation
+
 - **Location:** `backend/main.py`
 - **Issue:** FastAPI app not exposing OpenAPI docs
 - **Impact:** API not self-documenting

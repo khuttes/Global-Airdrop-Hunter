@@ -13,7 +13,7 @@ The Global Airdrop Hunter project is **partially complete** with significant fou
 ## Status by Category
 
 | Category | Weight | Score | Weighted |
-|----------|--------|-------|----------|
+| -------- | ------ | ----- | -------- |
 | Architecture & Core Infrastructure | 25% | 78% | 19.5% |
 | Feature Implementation | 35% | 72% | 25.2% |
 | Testing & Quality | 20% | 5% | 1.0% |
@@ -47,7 +47,7 @@ The Global Airdrop Hunter project is **partially complete** with significant fou
 ## Phase Completion
 
 | Phase | Status | Notes |
-|-------|--------|-------|
+| ----- | ------ | ----- |
 | Phase 0: Audit & Planning | ✅ Complete | All audit reports created |
 | Phase 1: Core Infrastructure | ⚠️ 85% | Config, DB, and backend working |
 | Phase 2: Backend API | ✅ 90% | All routes and services implemented |

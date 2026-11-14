@@ -32,17 +32,17 @@ foreach ($proc in $processes) {
 
     if ($pids) {
         $foundAny = $true
-        foreach ($pid in $pids) {
+        foreach ($processId in $pids) {
             try {
                 if ($Force) {
-                    Stop-Process -Id $pid -Force
-                    Write-Host "  Force killed $($proc.Name) (PID: $pid)" -ForegroundColor Yellow
+                    Stop-Process -Id $processId -Force
+                    Write-Host "  Force killed $($proc.Name) (PID: $processId)" -ForegroundColor Yellow
                 } else {
-                    Stop-Process -Id $pid
-                    Write-Host "  Stopped $($proc.Name) (PID: $pid)" -ForegroundColor Green
+                    Stop-Process -Id $processId
+                    Write-Host "  Stopped $($proc.Name) (PID: $processId)" -ForegroundColor Green
                 }
             } catch {
-                Write-Host "  Failed to stop $($proc.Name) (PID: $pid): $_" -ForegroundColor Red
+                Write-Host "  Failed to stop $($proc.Name) (PID: $processId): $_" -ForegroundColor Red
             }
         }
     }
