@@ -1,0 +1,14 @@
+fastapi==0.109.1
+uvicorn[standard]==0.30.6
+pydantic==2.11.3
+pydantic-settings==2.9.1
+httpx==0.27.2
+beautifulsoup4==4.12.3
+apscheduler==3.11.0
+python-dotenv==1.2.2
+alembic==1.14.1
+pytest==8.3.5
+pytest-asyncio==0.26.0
+aiohttp==3.14.4
+feedparser==6.0.11
+python-json-logger==2.0.7

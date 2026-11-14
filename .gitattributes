@@ -1,0 +1,82 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout.
+*.md text
+*.txt text
+*.json text
+*.js text
+*.ts text
+*.py text
+*.sql text
+*.yml text
+*.yaml text
+*.ini text
+*.cfg text
+*.conf text
+*.sh text
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+*.cs text
+*.cpp text
+*.h text
+*.c text
+
+# Declare files that will always have CRLF line endings on checkout.
+# Windows batch scripts and PowerShell scripts
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+*.psm1 text eol=crlf
+
+# Visual Studio solution and project files
+*.sln text eol=crlf
+*.csproj text eol=crlf
+*.vcxproj text eol=crlf
+*.props text eol=crlf
+*.targets text eol=crlf
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.otf binary
+
+# Electron/Node.js binaries and compiled files
+*.dll binary
+*.exe binary
+*.pak binary
+*.dat binary
+*.bin binary
+*.zip binary
+*.asar binary
+*.node binary
+
+# Database files
+*.db binary
+*.sqlite binary
+*.sqlite3 binary
+
+# Python cache
+__pycache__/ binary
+*.pyc binary
+*.pyo binary
+
+# IDE/editor files
+.vscode/ binary
+.idea/ binary
+*.swp binary
+*.swo binary
+
+# OS files
+.DS_Store binary
+Thumbs.db binary

@@ -1,0 +1,90 @@
+{
+  "name": "global-airdrop-hunter",
+  "version": "1.0.0",
+  "description": "Global Airdrop Hunter - Desktop application for discovering and tracking crypto airdrops",
+  "main": "desktop/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder --win --x64",
+    "build:portable": "electron-builder --win portable --x64",
+    "build:dir": "electron-builder --win --x64 --dir",
+    "prepare-backend": "powershell -ExecutionPolicy Bypass -File scripts/prepare-backend.ps1",
+    "lint": "echo \"No JS linter configured yet\"",
+    "test": "echo \"No JS tests configured yet\""
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.3.3",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.globalairdrop.hunter",
+    "productName": "Global Airdrop Hunter",
+    "copyright": "Copyright © 2026",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "desktop/**/*",
+      "frontend/**/*",
+      "backend/**/*",
+      "scripts/**/*",
+      "package.json",
+      "!.venv/Scripts/*.exe",
+      "!.venv/Scripts/*.dll"
+    ],
+    "extraResources": [
+      {
+        "from": "backend",
+        "to": "backend",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": ".venv",
+        "to": ".venv",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "backend/**/*",
+      ".venv/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "certificateFile": "",
+      "sign": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Global Airdrop Hunter"
+    },
+    "portable": {
+      "artifactName": "GlobalAirdropHunter-${version}-portable.${ext}"
+    }
+  }
+}

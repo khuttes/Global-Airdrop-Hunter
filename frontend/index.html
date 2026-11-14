@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' http://127.0.0.1:*; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <title>Global Airdrop Hunter</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/states.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" role="navigation" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <div class="logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+          <span>Global Airdrop Hunter</span>
+        </div>
+        <div class="version" id="app-version">v1.0.0</div>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <button class="nav-item active" data-module="dashboard" aria-current="page">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7" rx="1"/>
+                <rect x="14" y="3" width="7" height="7" rx="1"/>
+                <rect x="3" y="14" width="7" height="7" rx="1"/>
+                <rect x="14" y="14" width="7" height="7" rx="1"/>
+              </svg>
+              <span>Dashboard</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item" data-module="campaigns">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+              <span>Campaigns</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item" data-module="discovery">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <span>Discovery</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item" data-module="tracking">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              <span>Tracking</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item" data-module="settings">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+              </svg>
+              <span>Settings</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="backend-status" id="backend-status">
+          <span class="status-indicator" id="status-indicator"></span>
+          <span>Backend: <span id="status-text">Starting...</span></span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content" role="main">
+      <header class="top-bar">
+        <div class="search-container">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="search" class="search-input" placeholder="Search campaigns..." aria-label="Search campaigns" id="global-search">
+          <div class="search-results" id="search-results" aria-live="polite"></div>
+        </div>
+        <div class="top-bar-actions">
+          <button class="btn btn-secondary" id="refresh-btn" aria-label="Refresh data">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <polyline points="23 4 23 10 17 10"/>
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+            </svg>
+            <span>Refresh</span>
+          </button>
+          <button class="btn btn-primary" id="scan-btn" aria-label="Start discovery scan">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+            <span>Scan</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="content-area">
+        <section class="module active" id="module-dashboard" aria-labelledby="dashboard-title">
+          <header class="module-header">
+            <h1 id="dashboard-title">Dashboard</h1>
+            <p class="module-description">Overview of discovered campaigns and tracking status</p>
+          </header>
+          <div class="dashboard-grid" id="dashboard-grid">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value" id="stat-campaigns">0</div>
+                <div class="stat-label">Total Campaigns</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value" id="stat-tracking">0</div>
+                <div class="stat-label">Tracking</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value" id="stat-verified">0</div>
+                <div class="stat-label">Verified</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon warning">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                  <line x1="12" y1="9" x2="12" y2="13"/>
+                  <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+              </div>
+              <div class="stat-content">
+                <div class="stat-value" id="stat-high-risk">0</div>
+                <div class="stat-label">High Risk</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-sections">
+            <section class="dashboard-section">
+              <header class="section-header">
+                <h2>Recent Campaigns</h2>
+                <button class="btn btn-ghost btn-sm" id="view-all-campaigns">View All</button>
+              </header>
+              <div class="table-container">
+                <table class="data-table" id="recent-campaigns-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Network</th>
+                      <th>Status</th>
+                      <th>Risk</th>
+                      <th>Discovered</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recent-campaigns-body">
+                    <tr class="empty-row">
+                      <td colspan="6">No campaigns discovered yet. Click "Scan" to start discovery.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="dashboard-section">
+              <header class="section-header">
+                <h2>Upcoming Deadlines</h2>
+                <button class="btn btn-ghost btn-sm" id="view-all-deadlines">View All</button>
+              </header>
+              <div class="deadline-list" id="deadline-list">
+                <div class="empty-state">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
+                  <p>No upcoming deadlines</p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="module" id="module-campaigns" aria-labelledby="campaigns-title">
+          <header class="module-header">
+            <h1 id="campaigns-title">Campaigns</h1>
+            <p class="module-description">Browse and manage discovered airdrop campaigns</p>
+          </header>
+          <div class="module-toolbar">
+            <div class="filter-group">
+              <select id="filter-type" aria-label="Filter by type">
+                <option value="">All Types</option>
+                <option value="airdrop">Airdrop</option>
+                <option value="nft">NFT</option>
+                <option value="testnet">Testnet</option>
+                <option value="reward">Reward</option>
+              </select>
+              <select id="filter-network" aria-label="Filter by network">
+                <option value="">All Networks</option>
+              </select>
+              <select id="filter-status" aria-label="Filter by status">
+                <option value="">All Statuses</option>
+                <option value="active">Active</option>
+                <option value="upcoming">Upcoming</option>
+                <option value="ended">Ended</option>
+                <option value="expired">Expired</option>
+              </select>
+              <select id="filter-risk" aria-label="Filter by risk">
+                <option value="">All Risk Levels</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+                <option value="critical">Critical</option>
+              </select>
+            </div>
+            <div class="toolbar-actions">
+              <button class="btn btn-secondary" id="export-btn">Export</button>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="data-table" id="campaigns-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" id="select-all" aria-label="Select all"></th>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Network</th>
+                  <th>Status</th>
+                  <th>Verification</th>
+                  <th>Risk</th>
+                  <th>Deadline</th>
+                  <th>Discovered</th>
+                </tr>
+              </thead>
+              <tbody id="campaigns-body">
+                <tr class="empty-row">
+                  <td colspan="9">No campaigns found. Start a discovery scan.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination" id="campaigns-pagination" aria-label="Campaigns pagination"></div>
+        </section>
+
+        <section class="module" id="module-discovery" aria-labelledby="discovery-title">
+          <header class="module-header">
+            <h1 id="discovery-title">Discovery</h1>
+            <p class="module-description">Configure and run campaign discovery scans</p>
+          </header>
+          <div class="discovery-panel">
+            <div class="card">
+              <header class="card-header">
+                <h2>Sources</h2>
+              </header>
+              <div class="card-body">
+                <div class="source-list" id="source-list">
+                  <div class="empty-state">
+                    <p>No sources configured yet. Sources will be added in Phase 3.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <header class="card-header">
+                <h2>Scan History</h2>
+              </header>
+              <div class="card-body">
+                <div class="scan-history" id="scan-history">
+                  <div class="empty-state">
+                    <p>No scans performed yet.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="module" id="module-tracking" aria-labelledby="tracking-title">
+          <header class="module-header">
+            <h1 id="tracking-title">Tracking</h1>
+            <p class="module-description">Track your progress on campaigns</p>
+          </header>
+          <div class="tracking-panel">
+            <div class="card">
+              <header class="card-header">
+                <h2>Tracked Campaigns</h2>
+              </header>
+              <div class="card-body">
+                <div class="empty-state">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                  <p>No campaigns tracked yet. Add campaigns from the Campaigns module.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="module" id="module-settings" aria-labelledby="settings-title">
+          <header class="module-header">
+            <h1 id="settings-title">Settings</h1>
+            <p class="module-description">Configure application settings</p>
+          </header>
+          <div class="settings-panel">
+            <div class="card">
+              <header class="card-header">
+                <h2>General</h2>
+              </header>
+              <div class="card-body">
+                <div class="setting-row">
+                  <label for="setting-theme">Theme</label>
+                  <select id="setting-theme">
+                    <option value="dark">Dark</option>
+                    <option value="light">Light</option>
+                    <option value="system">System</option>
+                  </select>
+                </div>
+                <div class="setting-row">
+                  <label for="setting-auto-refresh">Auto-refresh interval (minutes)</label>
+                  <input type="number" id="setting-auto-refresh" value="30" min="5" max="1440">
+                </div>
+                <div class="setting-row">
+                  <label for="setting-notifications">Enable notifications</label>
+                  <input type="checkbox" id="setting-notifications" checked>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <header class="card-header">
+                <h2>Backend</h2>
+              </header>
+              <div class="card-body">
+                <div class="setting-row">
+                  <label>API Base URL</label>
+                  <code id="setting-api-url">http://127.0.0.1:8000</code>
+                </div>
+                <div class="setting-row">
+                  <label>Database Location</label>
+                  <code id="setting-db-path">%LOCALAPPDATA%\GlobalAirdropHunter\app.db</code>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <header class="card-header">
+                <h2>Data Management</h2>
+              </header>
+              <div class="card-body">
+                <button class="btn btn-secondary" id="backup-btn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M21 21v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6"/>
+                    <polyline points="23 7 12 18 1 7"/>
+                  </svg>
+                  Create Backup
+                </button>
+                <button class="btn btn-secondary" id="diagnostics-btn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="16" x2="12" y2="12"/>
+                    <line x1="12" y1="8" x2="12.01" y2="8"/>
+                  </svg>
+                  Run Diagnostics
+                </button>
+              </div>
+            </div>
+            <div class="card">
+              <header class="card-header">
+                <h2>About</h2>
+              </header>
+              <div class="card-body">
+                <div class="setting-row">
+                  <label>Version</label>
+                  <span id="setting-version">1.0.0</span>
+                </div>
+                <div class="setting-row">
+                  <label>Electron</label>
+                  <span id="setting-electron-version">-</span>
+                </div>
+                <div class="setting-row">
+                  <label>Node</label>
+                  <span id="setting-node-version">-</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal" id="modal">
+      <header class="modal-header">
+        <h2 id="modal-title"></h2>
+        <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
+      </header>
+      <div class="modal-body" id="modal-body"></div>
+      <footer class="modal-footer" id="modal-footer"></footer>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

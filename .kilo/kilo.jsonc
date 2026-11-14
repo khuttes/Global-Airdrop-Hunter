@@ -1,0 +1,64 @@
+{
+  "$schema": "https://app.kilo.ai/config.json",
+  "mcp": {
+    "jupyter": {
+      "type": "remote",
+      "url": "http://localhost:3001/mcp",
+      "enabled": true
+    },
+    "e2b": {
+      "type": "local",
+      "command": [
+        "node",
+        "{{E2B_PATH}}/packages/js/dist/index.js"
+      ],
+      "environment": {
+        "E2B_API_KEY": "{{E2B_API_KEY}}"
+      },
+      "enabled": true
+    },
+    "n8n-mcp": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "n8n-mcp@2.12.2"
+      ],
+      "environment": {
+        "MCP_MODE": "stdio",
+        "LOG_LEVEL": "error",
+        "DISABLE_CONSOLE_OUTPUT": "true"
+      }
+    },
+    "needle": {
+      "type": "local",
+      "command": [
+        "uv",
+        "--directory",
+        "{{NEEDLE_PATH}}",
+        "run",
+        "needle-mcp"
+      ],
+      "environment": {
+        "NEEDLE_API_KEY": "{{NEEDLE_API_KEY}}"
+      },
+      "enabled": true
+    },
+    "airbyte-knowledge-mcp": {
+      "type": "remote",
+      "url": "https://airbyte.mcp.kapa.ai"
+    },
+    "astronomer-docs-mcp": {
+      "type": "remote",
+      "url": "https://www.astronomer.io/docs/_mcp/server"
+    },
+    "memory": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ]
+    }
+  }
+}
