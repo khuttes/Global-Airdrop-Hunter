@@ -80,6 +80,24 @@ def init_database() -> None:
     conn.close()
 
 
+def _add_missing_columns(conn: sqlite3.Connection) -> None:
+    """Add missing columns to existing tables that weren't handled by SQL migrations."""
+    # Add change_source and source_id to campaign_field_history if missing
+    columns = [row['name'] for row in conn.execute("PRAGMA table_info(campaign_field_history)").fetchall()]
+    
+    if 'change_source' not in columns:
+        conn.execute("ALTER TABLE campaign_field_history ADD COLUMN change_source TEXT NOT NULL DEFAULT 'discovery'")
+    
+    if 'source_id' not in columns:
+        conn.execute("ALTER TABLE campaign_field_history ADD COLUMN source_id TEXT")
+    
+    # Add is_critical_override to risk_rules if missing
+    columns = [row['name'] for row in conn.execute("PRAGMA table_info(risk_rules)").fetchall()]
+    
+    if 'is_critical_override' not in columns:
+        conn.execute("ALTER TABLE risk_rules ADD COLUMN is_critical_override INTEGER NOT NULL DEFAULT 0")
+
+
 def run_migrations() -> None:
     settings = get_settings()
     db_path = Path(settings.database_path)
@@ -133,6 +151,9 @@ def run_migrations() -> None:
                 "INSERT OR IGNORE INTO schema_migrations (id, name) VALUES (?, ?)",
                 (migration_id, migration_file.name)
             )
+
+    # Add missing columns that require ALTER TABLE (not supported in SQLite migration SQL)
+    _add_missing_columns(conn)
 
     conn.commit()
     conn.close()
